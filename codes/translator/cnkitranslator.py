@@ -14,6 +14,7 @@ class ATranslator(Translator):
                         self.supprt_source_language_list, self.to_language_list, 
                         source_language, to_language)
     
+    # 让翻译网站自己判断语言，重写父类Translator获取url的方法
     def get_url(self, source_language=None, to_language=None):
         return self.url
 

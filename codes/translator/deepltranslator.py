@@ -1,4 +1,7 @@
+import time
 from selenium.webdriver.support.ui import WebDriverWait
+import selenium.webdriver.support.expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 from .translator import Translator
 
@@ -27,12 +30,27 @@ class ATranslator(Translator):
         # 输入待翻译内容
         textarea.send_keys(text)
 
-        # 分享图标可用的时候，获取翻译结果
+        # 获取翻译结果
         mobile_share_xpath = '/html/body/div[2]/div[1]/div[5]/div[3]/div[3]/div[5]'
-        WebDriverWait(self.web_driver, timeout=10).until(
-            lambda d: d.find_element_by_xpath(mobile_share_xpath).get_attribute('class') == 'lmt__mobile_share_container')
+        mobile_share = self.web_driver.find_element_by_xpath(mobile_share_xpath)
         xpath = f'/html/body/div[2]/div[1]/div[5]/div[3]/div[3]/div[3]/div[1]/div[1]'
         e = self.web_driver.find_element_by_xpath(xpath)
+        # 当使用无头浏览器时，mobile_share会被隐藏，这里改用循环获取翻译结果，并判断五次结果一致
+        if "lmt--mobile-hidden" in mobile_share.get_attribute('class'):
+            result = e.get_property('innerHTML').strip()
+            times = 0
+            while True:
+                if times >= 5:
+                    break
+                if result == e.get_property('innerHTML').strip() and result != "" and "..." not in result:
+                    time.sleep(0.1)
+                    times += 1
+                result = e.get_property('innerHTML').strip()
+        else:
+            WebDriverWait(self.web_driver, timeout=10).until(
+                lambda d: d.find_element_by_xpath(mobile_share_xpath).get_attribute('class') == 'lmt__mobile_share_container')
+            btn_xpath = '/html/body/div[2]/div[1]/div[5]/div[3]/div[3]/div[3]/div[6]/div[1]/button'
+            WebDriverWait(self.web_driver, timeout=10).until(EC.visibility_of_element_located((By.XPATH, btn_xpath)))
 
         return e.get_property('innerHTML').strip()
         

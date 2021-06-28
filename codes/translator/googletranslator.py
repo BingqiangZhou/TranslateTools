@@ -30,7 +30,7 @@ class ATranslator(Translator):
 
         # 当翻译结果所在元素可见时，获取翻译结果
         result_span_xpath = "/html/body/c-wiz/div/div[2]/c-wiz/div[2]/c-wiz/div[1]/div[2]/div[2]/c-wiz[2]/div[5]/div/div[1]/span[1]"
-        result_span = WebDriverWait(self.web_driver, timeout=10).until(EC.visibility_of_element_located((By.XPATH, result_span_xpath))) # url改变作为翻译结束的信号，等待url改变
+        result_span = WebDriverWait(self.web_driver, timeout=10).until(EC.visibility_of_element_located((By.XPATH, result_span_xpath)))
         return result_span.text.replace("\n", "").replace("\r", "").replace("\r\n", "")
     
         
