@@ -1,0 +1,21 @@
+{
+    "browser": {
+        "name": "edge", 
+        "webdriver_path": "./drivers/edgedriver_win64/msedgedriver.exe",
+        "headless": true, 
+        "without_log": true, 
+        "edge_path": null, 
+        "user_agent": null
+    },
+    "translators":{
+        "source_language": "zh",
+        "to_language": "en",
+        "names": [
+            "youdao",
+            "google",
+            "baidu",
+            "cnki",
+            "deepl"
+        ]
+    }
+}
