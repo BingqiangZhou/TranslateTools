@@ -15,7 +15,12 @@ class ATranslator(Translator):
                         source_language, to_language)
         
         # 刷新 去掉多余的div
-        self.web_driver.refresh() 
+        self.web_driver.refresh()
+        # 关闭指导页
+        guide_close_xpath = '/html/body/div[7]/div/span'
+        close_btn = self.web_driver.find_element_by_xpath(guide_close_xpath)
+        if close_btn.is_displayed():
+            close_btn.click()
     
     # 让翻译网站自己判断语言，重写父类Translator获取url的方法
     def get_url(self, source_language=None, to_language=None):
