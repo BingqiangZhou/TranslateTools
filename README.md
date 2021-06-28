@@ -6,7 +6,14 @@
 
 ## 实现方式
 
-通过[selenium](https://github.com/SeleniumHQ/Selenium)将要翻译的中文输入到多个网站，分别得到结果。
+通过[selenium](https://github.com/SeleniumHQ/Selenium)模拟将要翻译的中文输入到多个网站，分别得到结果。
+
+### 模拟过程
+
+1. 切换到对应的翻译页面
+2. 清空输入框
+3. 输入待翻译内容
+4. 获取翻译结果
 
 ## 使用方法
 
@@ -26,7 +33,7 @@
         "browser": {
             "name": "edge",  // 浏览器名称
             "webdriver_path": "./drivers/edgedriver_win64/msedgedriver.exe", // webdriver路径
-            "headless": true, 
+            "headless": true, // 是否使用无头浏览器
             "without_log": true, // 是否输出log信息
             "edge_path": null, // edge可执行文件路径
             "user_agent": null // 浏览器user agent
@@ -44,6 +51,11 @@
         }
     }
     ```
+4. 运行程序
+    ```bash
+    python app.py
+    ```
+    ![run app](./picture/run_app.png)
 ---
 
 ## 参考
