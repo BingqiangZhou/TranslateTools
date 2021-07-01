@@ -21,7 +21,7 @@ class ATranslator(Translator):
 
         # 清空输入框
         textarea = self.web_driver.find_element_by_tag_name("textarea")
-        clear_btn_xpath = '/html/body/div[2]/div[1]/div[5]/div[3]/div[1]/button'
+        clear_btn_xpath = '/html/body/div[2]/div[1]/div[5]/div[4]/div[1]/button'
         clear_btn = self.web_driver.find_element_by_xpath(clear_btn_xpath)
         if clear_btn.is_displayed():
             clear_btn.click()
@@ -30,14 +30,14 @@ class ATranslator(Translator):
         textarea.send_keys(text)
 
         # 获取翻译结果
-        mobile_share_xpath = '/html/body/div[2]/div[1]/div[5]/div[3]/div[3]/div[5]'
+        mobile_share_xpath = '/html/body/div[2]/div[1]/div[5]/div[4]/div[3]/div[5]'
         mobile_share = self.web_driver.find_element_by_xpath(mobile_share_xpath)
-        xpath = f'/html/body/div[2]/div[1]/div[5]/div[3]/div[3]/div[3]/div[1]/div[1]'
+        xpath = '/html/body/div[2]/div[1]/div[5]/div[4]/div[3]/div[3]/div[1]/div[1]'
         e = self.web_driver.find_element_by_xpath(xpath)
         # 当使用无头浏览器时，mobile_share会被隐藏，这里改用循环获取翻译结果，并判断五次结果一致
         if "lmt--mobile-hidden" in mobile_share.get_attribute('class'):
             # WebDriverWait(self.web_driver, timeout=10).until(EC.url_changes((self.web_driver.current_url)))
-            loader_indicator = '/html/body/div[2]/div[1]/div[5]/div[3]/div[3]/div[3]/div[3]/div'
+            loader_indicator = '/html/body/div[2]/div[1]/div[5]/div[4]/div[3]/div[3]/div[3]/div'
             WebDriverWait(self.web_driver, timeout=10).until(EC.invisibility_of_element_located((By.XPATH, loader_indicator)))
             result = e.get_property('innerHTML').strip()
             times = 0
