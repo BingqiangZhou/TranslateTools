@@ -9,8 +9,10 @@ translator_list = config.config_translators()
 try:
     while True:
         print(f"\r\n{'='*80}\r\nPlease enter the Chinese you want to translate: [enter 'exit' to quit]")
-        text = input()
-        if text.lower() == 'exit':
+        text = input().strip()
+        if text == "":
+            continue
+        elif text.lower() == 'exit':
             break
         for translator in translator_list:
             s = time.time()
